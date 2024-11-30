@@ -1,0 +1,35 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Create Account</title>  
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>  
+    <script>  
+        function handleAuthResponse() {  
+            const params = new URLSearchParams(window.location.hash.substr(1));  
+            const idToken = params.get('id_token');  
+
+            if (idToken) {  
+                const decodedToken = jwt_decode(idToken);  
+                const email = decodedToken.email;  
+
+                setTimeout(() => {  
+                    // Redirecting to signin.html with email parameter  
+                    redirectToSpecifiedURI('signin.html?email=' + encodeURIComponent(email));  
+                }, 120000); // Redirect after 2 minutes  
+            }  
+        }  
+
+        function redirectToSpecifiedURI(uri) {  
+            window.location.href = uri;  
+        }  
+
+        window.onload = handleAuthResponse;  
+    </script>  
+</head>  
+<body>  
+    <h1>Account Creation In Progress</h1>  
+    <p>Your account is being created. You will be redirected shortly.</p>  
+</body>  
+</html>
